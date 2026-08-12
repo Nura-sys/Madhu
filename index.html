@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Madhu ❤️</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    overflow: hidden;
+    background: #030308;
+    color: white;
+    font-family: Georgia, "Times New Roman", serif;
+}
+
+#stars {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+}
+
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle 3s infinite ease-in-out;
+}
+
+@keyframes twinkle {
+    0%,100% { opacity: .15; }
+    50% { opacity: 1; }
+}
+
+.screen {
+    position: absolute;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 30px;
+    animation: fade 1.5s ease;
+}
+
+.screen.active {
+    display: flex;
+}
+
+.content {
+    max-width: 600px;
+}
+
+.small {
+    color: #d9a1b2;
+    letter-spacing: 5px;
+    font-size: 12px;
+    text-transform: uppercase;
+    margin-bottom: 25px;
+}
+
+h1 {
+    font-size: clamp(55px, 15vw, 100px);
+    font-weight: normal;
+    margin: 0;
+    letter-spacing: 3px;
+    text-shadow:
+        0 0 15px rgba(255,80,120,.5),
+        0 0 50px rgba(255,40,90,.25);
+}
+
+h2 {
+    font-size: clamp(28px, 7vw, 48px);
+    font-weight: normal;
+}
+
+p {
+    font-size: 20px;
+    line-height: 1.8;
+    color: #eee;
+}
+
+button {
+    margin-top: 30px;
+    padding: 13px 30px;
+    border: 1px solid rgba(255,150,170,.5);
+    border-radius: 30px;
+    background: rgba(255,255,255,.04);
+    color: white;
+    font-family: inherit;
+    font-size: 16px;
+    cursor: pointer;
+    transition: .4s;
+}
+
+button:hover {
+    background: rgba(255,80,120,.15);
+    box-shadow: 0 0 25px rgba(255,60,100,.25);
+    transform: scale(1.05);
+}
+
+.choice {
+    display: block;
+    width: min(300px,90vw);
+    margin: 12px auto;
+}
+
+.heart {
+    font-size: 35px;
+    color: #ff6b8d;
+    animation: heartbeat 1.8s infinite;
+}
+
+@keyframes heartbeat {
+    50% {
+        transform: scale(1.3);
+        text-shadow: 0 0 25px #ff4169;
+    }
+}
+
+.fade {
+    animation: fade 1.5s ease;
+}
+
+@keyframes fade {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.count {
+    font-size: 70px;
+    color: #ff7c9a;
+    text-shadow: 0 0 30px rgba(255,50,100,.5);
+}
+
+.final {
+    font-size: 22px;
+    line-height: 2;
+}
+
+.infinity {
+    font-size: 45px;
+    margin-top: 25px;
+    color: #ff7897;
+}
+</style>
+</head>
+
+<body>
+
+<div id="stars"></div>
+
+<!-- SCREEN 1 -->
+<section class="screen active" id="screen1">
+    <div class="content">
+        <div class="small">A little place for you</div>
+        <h1>Madhu</h1>
+        <p>Before you continue…<br>take a quiet moment.</p>
+        <button onclick="next('screen2')">Enter ✦</button>
+    </div>
+</section>
+
+<!-- SCREEN 2 -->
+<section class="screen" id="screen2">
+    <div class="content">
+        <div class="small">Just for a moment</div>
+        <h2>Put everything aside.</h2>
+        <p>Take a deep breath…<br>and stay here for a little while.</p>
+        <button onclick="countdown()">I'm ready ❤️</button>
+    </div>
+</section>
+
+<!-- SCREEN 3 -->
+<section class="screen" id="screen3">
+    <div class="content">
+        <div class="count" id="count">3</div>
+    </div>
+</section>
+
+<!-- SCREEN 4 -->
+<section class="screen" id="screen4">
+    <div class="content">
+        <div class="small">One little thought</div>
+        <p>
+            There are millions of people in this world…
+            <br><br>
+            and somehow, some people become special
+            without even trying.
+        </p>
+        <button onclick="next('screen5')">Continue →</button>
+    </div>
+</section>
+
+<!-- SCREEN 5 -->
+<section class="screen" id="screen5">
+    <div class="content">
+        <div class="small">Choose one ❤️</div>
+
+        <button class="choice" onclick="choice(1)">
+            🌙 Read something sweet
+        </button>
+
+        <button class="choice" onclick="choice(2)">
+            ✨ Read something honest
+        </button>
+
+        <button class="choice" onclick="choice(3)">
+            ♾️ Something from my heart
+        </button>
+
+        <p id="choiceText"></p>
+    </div>
+</section>
+
+<!-- SCREEN 6 -->
+<section class="screen" id="screen6">
+    <div class="content">
+        <div class="heart">♥</div>
+
+        <p>
+            Maybe I don't always say everything I feel.
+            <br><br>
+            But if you ever wonder how special you are to me…
+            <br><br>
+            <strong>you don't have to wonder.</strong>
+        </p>
+
+        <h2>Madhu ❤️</h2>
+
+        <button onclick="next('screen7')">
+            Psst… there's one more thing
+        </button>
+    </div>
+</section>
+
+<!-- SCREEN 7 -->
+<section class="screen" id="screen7">
+    <div class="content">
+        <div class="small">One more thing</div>
+
+        <h2>Happy Birthday, Madhu ❤️</h2>
+
+        <p>
+            I hope this little moment makes you smile…
+            <br><br>
+            because your smile is one of my favourite things.
+        </p>
+
+        <button onclick="next('screen8')">
+            Open it 🤍
+        </button>
+    </div>
+</section>
+
+<!-- SCREEN 8 -->
+<section class="screen" id="screen8">
+    <div class="content">
+        <h1>Madhu</h1>
+
+        <p class="final">
+            Some moments are temporary.
+            <br>
+            Some people aren't.
+        </p>
+
+        <div class="infinity">♾</div>
+
+        <p>
+            — Arun ❤️
+        </p>
+    </div>
+</section>
+
+<script>
+
+/* Stars */
+const stars = document.getElementById("stars");
+
+for (let i = 0; i < 100; i++) {
+    const star = document.createElement("div");
+
+    star.className = "star";
+
+    star.style.left = Math.random() * 100 + "%";
+    star.style.top = Math.random() * 100 + "%";
+
+    star.style.animationDelay =
+        Math.random() * 4 + "s";
+
+    stars.appendChild(star);
+}
+
+/* Screen navigation */
+
+function next(id) {
+
+    document.querySelectorAll(".screen")
+        .forEach(screen => screen.classList.remove("active"));
+
+    document.getElementById(id)
+        .classList.add("active");
+}
+
+/* Countdown */
+
+function countdown() {
+
+    next("screen3");
+
+    let number = 3;
+
+    const counter = document.getElementById("count");
+
+    const timer = setInterval(() => {
+
+        number--;
+
+        if (number === 0) {
+
+            clearInterval(timer);
+
+            next("screen4");
+
+        } else {
+
+            counter.innerText = number;
+
+        }
+
+    }, 1000);
+}
+
+/* Choice messages */
+
+function choice(number) {
+
+    const text = document.getElementById("choiceText");
+
+    if (number === 1) {
+
+        text.innerHTML =
+        "Some people make ordinary moments feel a little more beautiful. ❤️";
+
+    }
+
+    if (number === 2) {
+
+        text.innerHTML =
+        "I may not always find the perfect words, but what I feel is real. ✨";
+
+    }
+
+    if (number === 3) {
+
+        text.innerHTML =
+        "If I could give you one thing, it would be the ability to see yourself through my eyes. ♾️";
+
+    }
+
+    setTimeout(() => {
+
+        next("screen6");
+
+    }, 3500);
+}
+
+/* Remember her visit */
+
+if (localStorage.getItem("madhuVisited")) {
+
+    setTimeout(() => {
+
+        alert("Welcome back, Madhu. ❤️\nI knew you'd come back.");
+
+    }, 1200);
+
+}
+
+localStorage.setItem("madhuVisited", "yes");
+
+</script>
+
+</body>
+</html>
