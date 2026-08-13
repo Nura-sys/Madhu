@@ -2,7 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0,
+               maximum-scale=1.0, user-scalable=no">
+
 <title>Memories of Us ❤️</title>
 
 <style>
@@ -12,121 +15,97 @@
     margin:0;
     padding:0;
     box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
 }
 
-html{
-    scroll-behavior:smooth;
+html,body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    background:#050507;
+    color:#fff;
+    font-family:'Montserrat',sans-serif;
 }
+
+/* ================================
+   BACKGROUND
+================================ */
 
 body{
-    background:#050507;
-    color:white;
-    font-family:'Montserrat',sans-serif;
-    overflow:hidden;
-}
-
-/* Cinematic background */
-
-body:before{
-    content:"";
-    position:fixed;
-    inset:0;
-    z-index:-5;
-
     background:
-    radial-gradient(circle at 20% 20%,
-    rgba(255,70,120,.12),
-    transparent 30%),
-
-    radial-gradient(circle at 80% 80%,
-    rgba(120,60,255,.10),
-    transparent 30%);
-
-    animation:bgMove 14s infinite alternate ease-in-out;
+    radial-gradient(
+        circle at 20% 20%,
+        rgba(255,70,120,.12),
+        transparent 32%
+    ),
+    radial-gradient(
+        circle at 80% 80%,
+        rgba(120,60,255,.10),
+        transparent 32%
+    ),
+    #050507;
 }
-
-@keyframes bgMove{
-    from{transform:scale(1);}
-    to{transform:scale(1.15);}
-}
-
-/* Film grain */
 
 body:after{
     content:"";
     position:fixed;
     inset:0;
     pointer-events:none;
-    z-index:50;
+    z-index:100;
+
     opacity:.035;
 
     background-image:
-    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* Particles */
-
-#particles{
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-    overflow:hidden;
-    z-index:2;
-}
-
-.particle{
-    position:absolute;
-    width:3px;
-    height:3px;
-    border-radius:50%;
-    background:white;
-    opacity:.35;
-    animation:rise linear infinite;
-}
-
-@keyframes rise{
-    0%{
-        transform:translateY(110vh) scale(.3);
-        opacity:0;
-    }
-
-    20%{opacity:.5;}
-
-    80%{opacity:.5;}
-
-    100%{
-        transform:translateY(-10vh) scale(1);
-        opacity:0;
-    }
-}
-
-/* Main page */
+/* ================================
+   APP
+================================ */
 
 #app{
+    width:100vw;
     height:100vh;
-    width:100%;
-    overflow-y:auto;
-    scroll-behavior:smooth;
+    overflow:hidden;
+    position:relative;
 }
 
-/* Locked state */
+/* Every scene fills the entire screen */
 
-body.locked #app{
+.scene{
+    position:absolute;
+    inset:0;
+
+    width:100%;
+    height:100%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:
+    30px
+    24px
+    max(30px, env(safe-area-inset-bottom));
+
+    opacity:0;
+    visibility:hidden;
+
+    transform:scale(1.04);
+
+    transition:
+        opacity .8s ease,
+        transform .8s ease,
+        visibility .8s ease;
+
     overflow:hidden;
 }
 
-/* Sections */
-
-section{
-    min-height:100vh;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    position:relative;
-
-    padding:70px 22px;
+.scene.active{
+    opacity:1;
+    visibility:visible;
+    transform:scale(1);
+    z-index:10;
 }
 
 .content{
@@ -136,89 +115,142 @@ section{
 }
 
 .small{
-    font-size:10px;
-    letter-spacing:6px;
+    font-size:9px;
+    letter-spacing:5px;
     text-transform:uppercase;
-    opacity:.5;
-    margin-bottom:25px;
+    opacity:.48;
+    margin-bottom:24px;
 }
 
-h1,
-h2,
-.year-number,
-.memory,
-.question,
-.success-text,
-.final-title{
+h1,h2,.year,.memory,.question,.success-text,.final-title{
     font-family:'Cormorant Garamond',serif;
 }
 
 h1{
-    font-size:clamp(60px,15vw,130px);
+    font-size:clamp(60px,16vw,125px);
     line-height:.82;
     font-weight:500;
 }
 
 h2{
-    font-size:clamp(42px,9vw,78px);
-    line-height:1;
+    font-size:clamp(45px,11vw,80px);
+    line-height:.95;
     font-weight:500;
 }
 
 p{
-    font-size:15px;
-    line-height:2;
-    opacity:.75;
+    font-size:14px;
+    line-height:1.9;
+    opacity:.72;
 }
 
 .highlight{
     color:#ff719b;
 }
 
-/* Buttons */
+/* ================================
+   BUTTONS
+================================ */
 
-.start-btn,
-.final-btn{
-    margin-top:45px;
+.main-btn{
+    margin-top:35px;
 
-    padding:17px 34px;
+    padding:16px 30px;
 
     border-radius:50px;
 
     border:1px solid rgba(255,255,255,.25);
 
-    background:rgba(255,255,255,.04);
+    background:rgba(255,255,255,.05);
 
     color:white;
 
-    font-family:'Montserrat',sans-serif;
-
-    font-size:10px;
-
+    font-size:9px;
     letter-spacing:4px;
 
     cursor:pointer;
 
-    transition:.5s;
+    transition:.4s;
 }
 
-.start-btn:hover,
-.final-btn:hover{
-    transform:scale(1.07);
+.main-btn:active{
+    transform:scale(.94);
+}
 
-    background:rgba(255,80,130,.15);
+.main-btn:hover{
+    background:rgba(255,80,130,.16);
 
     box-shadow:
-    0 0 40px rgba(255,70,120,.2);
+    0 0 35px rgba(255,70,120,.16);
 }
 
-/* Opening */
+/* ================================
+   PARTICLES
+================================ */
+
+#particles{
+    position:fixed;
+    inset:0;
+
+    pointer-events:none;
+
+    overflow:hidden;
+
+    z-index:2;
+}
+
+.particle{
+    position:absolute;
+
+    width:3px;
+    height:3px;
+
+    border-radius:50%;
+
+    background:#fff;
+
+    opacity:.35;
+
+    animation:floatUp linear infinite;
+}
+
+@keyframes floatUp{
+
+    0%{
+        transform:
+        translateY(110vh)
+        scale(.3);
+
+        opacity:0;
+    }
+
+    20%{
+        opacity:.45;
+    }
+
+    80%{
+        opacity:.45;
+    }
+
+    100%{
+        transform:
+        translateY(-10vh)
+        scale(1);
+
+        opacity:0;
+    }
+}
+
+/* ================================
+   OPENING
+================================ */
 
 .opening-content{
-    animation:intro 2.5s ease forwards;
+    animation:intro 2s ease forwards;
 }
 
 @keyframes intro{
+
     from{
         opacity:0;
         transform:translateY(30px);
@@ -230,252 +262,104 @@ p{
     }
 }
 
-.scroll{
-    position:absolute;
-    bottom:30px;
-    left:50%;
-
-    transform:translateX(-50%);
-
-    font-size:9px;
-    letter-spacing:4px;
-    opacity:.35;
-
-    animation:bounce 2s infinite;
-}
-
-@keyframes bounce{
-    0%,100%{
-        transform:translate(-50%,0);
-    }
-
-    50%{
-        transform:translate(-50%,10px);
-    }
-}
-
-/* Timeline */
-
-.timeline-section{
-    display:block;
-    padding-top:120px;
-}
-
-.timeline-intro{
-    text-align:center;
-    margin-bottom:110px;
-}
-
-.timeline{
-    position:relative;
-    max-width:900px;
-    margin:auto;
-}
-
-.timeline-line{
-    position:absolute;
-
-    left:50%;
-    top:0;
-    bottom:0;
-
-    width:1px;
-
-    background:
-    linear-gradient(
-        transparent,
-        rgba(255,255,255,.35),
-        transparent
-    );
-}
-
-/* Year */
+/* ================================
+   YEAR SCENES
+================================ */
 
 .year{
-    position:relative;
+    font-size:clamp(75px,20vw,150px);
 
-    min-height:250px;
-
-    margin:120px 0;
-
-    opacity:0;
-    transform:translateY(50px);
-
-    transition:
-    opacity 1s ease,
-    transform 1s ease;
-}
-
-.year.visible{
-    opacity:1;
-    transform:translateY(0);
-}
-
-.year-card{
-    width:44%;
-
-    padding:35px 25px;
-
-    border:
-    1px solid rgba(255,255,255,.13);
-
-    border-radius:24px;
-
-    background:
-    linear-gradient(
-        145deg,
-        rgba(255,255,255,.06),
-        rgba(255,255,255,.015)
-    );
-
-    backdrop-filter:blur(15px);
-
-    cursor:pointer;
-
-    transition:.6s;
-}
-
-.year:nth-child(odd) .year-card{
-    margin-right:auto;
-}
-
-.year:nth-child(even) .year-card{
-    margin-left:auto;
-}
-
-.year-card:hover{
-    transform:translateY(-10px);
-
-    border-color:
-    rgba(255,100,150,.5);
-
-    box-shadow:
-    0 20px 70px rgba(0,0,0,.5),
-    0 0 30px rgba(255,70,120,.08);
-}
-
-.year-number{
-    font-size:75px;
     color:#ff719b;
+
     line-height:.8;
+
+    margin-bottom:25px;
 }
 
-.tap{
-    margin-top:20px;
+.year-subtitle{
+    font-size:10px;
 
-    font-size:8px;
     letter-spacing:4px;
 
-    opacity:.4;
+    opacity:.45;
+
+    margin-bottom:35px;
 }
 
-/* Memories */
+.memory-list{
+    width:100%;
+    max-width:500px;
 
-.memories{
-    max-height:0;
-    overflow:hidden;
-
-    transition:
-    max-height 1.3s ease,
-    margin-top .7s ease;
-}
-
-.year.open .memories{
-    max-height:800px;
-    margin-top:30px;
+    margin:auto;
 }
 
 .memory{
-    font-size:22px;
-    line-height:1.2;
+    font-size:clamp(23px,6vw,32px);
 
-    padding:17px 0;
-
-    border-bottom:
-    1px solid rgba(255,255,255,.07);
+    padding:13px 5px;
 
     opacity:0;
 
-    transform:translateY(25px);
+    transform:
+    translateY(20px);
 
     transition:
-    opacity .8s ease,
-    transform .8s ease;
+    opacity .7s ease,
+    transform .7s ease;
 }
 
-.year.open .memory{
+.memory.show{
     opacity:1;
     transform:translateY(0);
 }
 
-.year.open .memory:nth-child(1){
-    transition-delay:.1s;
+.memory:last-child{
+    border-bottom:0;
 }
 
-.year.open .memory:nth-child(2){
-    transition-delay:.25s;
+.next-btn{
+    opacity:0;
+    pointer-events:none;
+
+    transition:opacity .7s ease;
 }
 
-.year.open .memory:nth-child(3){
-    transition-delay:.4s;
+.next-btn.ready{
+    opacity:1;
+    pointer-events:auto;
 }
 
-.year.open .memory:nth-child(4){
-    transition-delay:.55s;
-}
+/* ================================
+   STORY
+================================ */
 
-.year.open .memory:nth-child(5){
-    transition-delay:.7s;
-}
-
-/* Locked years */
-
-.year.locked .year-card{
-    opacity:.35;
-    filter:grayscale(.5);
-    cursor:not-allowed;
-}
-
-.year.locked .tap:after{
-    content:"  🔒";
-}
-
-.year.completed .year-card{
-    border-color:
-    rgba(255,100,150,.45);
-}
-
-.year.completed .tap{
-    color:#ff719b;
-    opacity:.8;
-}
-
-/* Continue */
-
-.continue-line{
+.story-text{
     font-family:'Cormorant Garamond',serif;
 
     font-size:
-    clamp(30px,6vw,55px);
+    clamp(30px,7vw,55px);
 
-    line-height:1.3;
-
-    max-width:750px;
-
-    margin:auto;
+    line-height:1.25;
 }
 
-/* Heart */
+.story-text span{
+    color:#ff719b;
+}
+
+/* ================================
+   HEART
+================================ */
 
 .heart{
     font-size:70px;
 
-    margin-bottom:30px;
+    margin-bottom:25px;
 
-    animation:heartbeat 1.6s infinite;
+    animation:heartbeat 1.5s infinite;
 }
 
 @keyframes heartbeat{
+
     0%,100%{
         transform:scale(1);
     }
@@ -489,30 +373,28 @@ p{
     }
 
     45%{
-        transform:scale(1.12);
+        transform:scale(1.1);
     }
 }
 
-/* Question */
+/* ================================
+   QUESTION
+================================ */
 
 .question{
     font-size:
-    clamp(34px,7vw,65px);
+    clamp(32px,8vw,60px);
 
     line-height:1.1;
 
-    margin-bottom:30px;
-}
-
-.answer-box{
-    margin-top:40px;
+    margin-bottom:25px;
 }
 
 input{
     width:100%;
-    max-width:450px;
+    max-width:430px;
 
-    padding:18px 25px;
+    padding:17px 22px;
 
     border-radius:50px;
 
@@ -529,117 +411,76 @@ input{
     font-size:16px;
 
     outline:none;
-
-    transition:.4s;
 }
 
 input:focus{
     border-color:#ff719b;
 
     box-shadow:
-    0 0 30px rgba(255,80,130,.1);
+    0 0 30px rgba(255,70,120,.1);
 }
 
 .error{
     display:none;
 
-    margin-top:25px;
+    margin-top:18px;
 
     color:#ff91aa;
 
     font-family:'Cormorant Garamond',serif;
 
-    font-size:25px;
+    font-size:24px;
 
     animation:shake .4s;
 }
 
 @keyframes shake{
+
     0%,100%{
         transform:translateX(0);
     }
 
     25%{
-        transform:translateX(-10px);
+        transform:translateX(-9px);
     }
 
     75%{
-        transform:translateX(10px);
+        transform:translateX(9px);
     }
 }
 
-/* Success */
-
-#success{
-    display:none;
-}
+/* ================================
+   SUCCESS
+================================ */
 
 .success-text{
     font-size:
-    clamp(28px,6vw,48px);
+    clamp(28px,7vw,48px);
 
     line-height:1.35;
 }
 
-/* Heart explosion */
-
-.explosion-heart{
-    position:fixed;
-
-    left:50%;
-    top:50%;
-
-    transform:
-    translate(-50%,-50%);
-
-    pointer-events:none;
-
-    animation:
-    explode 2s forwards;
-
-    z-index:100;
-}
-
-@keyframes explode{
-    0%{
-        transform:
-        translate(-50%,-50%)
-        scale(.5);
-
-        opacity:1;
-    }
-
-    100%{
-        transform:
-        translate(
-        calc(-50% + var(--x)),
-        calc(-50% + var(--y))
-        )
-        scale(1.4);
-
-        opacity:0;
-    }
-}
-
-/* Final */
+/* ================================
+   FINAL
+================================ */
 
 .final-title{
     font-size:
-    clamp(45px,9vw,80px);
+    clamp(43px,10vw,80px);
 
-    line-height:1;
+    line-height:.98;
 
-    margin-bottom:35px;
+    margin-bottom:30px;
 }
 
 .final-subtitle{
     font-family:'Cormorant Garamond',serif;
 
-    font-size:25px;
+    font-size:24px;
 
-    line-height:1.7;
+    line-height:1.6;
 
-    opacity:.8;
+    opacity:.78;
 }
 
 .drive{
@@ -647,126 +488,97 @@ input:focus{
     text-decoration:none;
 }
 
-/* Popup */
+/* ================================
+   HEART EXPLOSION
+================================ */
 
-.popup{
+.explosion-heart{
     position:fixed;
 
-    inset:0;
-
-    display:none;
-
-    justify-content:center;
-    align-items:center;
-
-    background:
-    rgba(0,0,0,.75);
-
-    backdrop-filter:blur(10px);
+    left:50%;
+    top:50%;
 
     z-index:200;
 
-    padding:25px;
+    pointer-events:none;
+
+    font-size:22px;
+
+    animation:
+    explode 1.8s ease-out forwards;
 }
 
-.popup-box{
-    max-width:420px;
-    width:100%;
+@keyframes explode{
 
-    padding:40px 30px;
+    0%{
+        transform:
+        translate(-50%,-50%)
+        scale(.4);
 
-    border:
-    1px solid rgba(255,255,255,.18);
-
-    border-radius:25px;
-
-    background:
-    rgba(20,20,25,.95);
-
-    text-align:center;
-
-    animation:popupIn .5s ease;
-}
-
-@keyframes popupIn{
-    from{
-        opacity:0;
-        transform:scale(.85);
-    }
-
-    to{
         opacity:1;
-        transform:scale(1);
+    }
+
+    100%{
+        transform:
+        translate(
+            calc(-50% + var(--x)),
+            calc(-50% + var(--y))
+        )
+        scale(1.3);
+
+        opacity:0;
     }
 }
 
-.popup-title{
-    font-family:'Cormorant Garamond',serif;
+/* ================================
+   MUSIC INDICATOR
+================================ */
 
-    font-size:32px;
+.music-status{
+    position:fixed;
 
-    margin-bottom:15px;
+    top:18px;
+    right:18px;
+
+    z-index:150;
+
+    font-size:9px;
+
+    letter-spacing:2px;
+
+    opacity:.4;
+
+    display:none;
 }
 
-.popup-text{
-    font-size:14px;
-    line-height:1.8;
-    opacity:.7;
-}
+/* ================================
+   MOBILE
+================================ */
 
-.close-btn{
-    margin-top:25px;
+@media(max-width:600px){
 
-    padding:12px 25px;
-
-    border-radius:30px;
-
-    background:
-    rgba(255,255,255,.08);
-
-    color:white;
-
-    border:
-    1px solid rgba(255,255,255,.2);
-
-    cursor:pointer;
-}
-
-/* Mobile */
-
-@media(max-width:700px){
-
-    .timeline-line{
-        left:13px;
-    }
-
-    .year{
-        margin:80px 0;
-    }
-
-    .year-card{
-        width:
-        calc(100% - 40px);
-
-        margin-left:40px !important;
-        margin-right:0 !important;
-    }
-
-    .year-number{
-        font-size:65px;
+    .scene{
+        padding-left:20px;
+        padding-right:20px;
     }
 
     .memory{
-        font-size:21px;
+        padding:11px 0;
+    }
+
+    .main-btn{
+        padding:15px 25px;
     }
 }
 </style>
 </head>
 
 
-<body class="locked">
+<body>
 
-<!-- Background music -->
+<!-- ================================
+     MUSIC
+================================ -->
 
 <audio
     id="bgMusic"
@@ -778,19 +590,25 @@ input:focus{
 
 <div id="particles"></div>
 
+<div
+    class="music-status"
+    id="musicStatus">
+    ♪ OUR MUSIC
+</div>
+
 
 <div id="app">
 
 
-<!-- =========================
-     OPENING
-========================= -->
+<!-- =================================
+     SCENE 0 — OPENING
+================================= -->
 
 <section
-    class="opening"
-    id="opening">
+    class="scene active"
+    id="scene0">
 
-<div class="content opening-content">
+<div class="content">
 
 <div class="small">
 A Movie Of Us
@@ -803,18 +621,18 @@ Papa ❤️
 </span>
 </h1>
 
-<p style="margin-top:40px;">
+<p style="margin-top:35px;">
 This year's birthday should be<br>
 the most unforgettable day.
 </p>
 
-<p style="margin-top:18px;">
+<p style="margin-top:15px;">
 Something special has been waiting<br>
 for you at the end...
 </p>
 
-<p style="margin-top:18px;">
-But before you reach it...
+<p style="margin-top:15px;">
+But first...
 <br>
 <span class="highlight">
 open all our unforgettable days.
@@ -822,7 +640,7 @@ open all our unforgettable days.
 </p>
 
 <button
-class="start-btn"
+class="main-btn"
 onclick="startMovie()">
 
 START OUR MOVIE ❤️
@@ -831,65 +649,34 @@ START OUR MOVIE ❤️
 
 </div>
 
-<div class="scroll">
-TAP START TO BEGIN
-</div>
-
 </section>
 
 
-<!-- =========================
-     TIMELINE
-========================= -->
+<!-- =================================
+     SCENE 1 — 2023
+================================= -->
 
 <section
-class="timeline-section"
-id="timeline">
+class="scene"
+id="scene1">
 
-<div class="timeline-intro">
+<div class="content">
 
 <div class="small">
-Our Journey
+Our First Chapter
 </div>
 
-<h2>
-2023 → 2026
-</h2>
-
-<p style="margin-top:30px;">
-Four years.<br>
-Thousands of moments.<br>
-One beautiful story.
-</p>
-
-</div>
-
-
-<div class="timeline">
-
-<div class="timeline-line"></div>
-
-
-<!-- 2023 -->
-
-<div
-class="year visible"
-data-year="2023"
-data-index="0">
-
-<div
-class="year-card"
-onclick="openYear(this)">
-
-<div class="year-number">
+<div class="year">
 2023
 </div>
 
-<div class="tap">
-TOUCH TO OPEN
+<div class="year-subtitle">
+TOUCH EACH MEMORY
 </div>
 
-<div class="memories">
+<div
+class="memory-list"
+id="memories2023">
 
 <div class="memory">
 Holding hands ❤️
@@ -913,31 +700,45 @@ Our 1st picture 📸
 
 </div>
 
-</div>
+<button
+class="main-btn next-btn"
+id="next2023"
+onclick="goScene(2)">
+
+2024 IS WAITING ❤️
+
+</button>
 
 </div>
 
+</section>
 
-<!-- 2024 -->
 
-<div
-class="year locked"
-data-year="2024"
-data-index="1">
+<!-- =================================
+     SCENE 2 — 2024
+================================= -->
 
-<div
-class="year-card"
-onclick="openYear(this)">
+<section
+class="scene"
+id="scene2">
 
-<div class="year-number">
+<div class="content">
+
+<div class="small">
+Another Chapter
+</div>
+
+<div class="year">
 2024
 </div>
 
-<div class="tap">
-TOUCH TO OPEN
+<div class="year-subtitle">
+ANOTHER YEAR OF US
 </div>
 
-<div class="memories">
+<div
+class="memory-list"
+id="memories2024">
 
 <div class="memory">
 Auto travel 🛺
@@ -953,31 +754,45 @@ Unforgettable moments...
 
 </div>
 
-</div>
+<button
+class="main-btn next-btn"
+id="next2024"
+onclick="goScene(3)">
+
+2025 IS WAITING ❤️
+
+</button>
 
 </div>
 
+</section>
 
-<!-- 2025 -->
 
-<div
-class="year locked"
-data-year="2025"
-data-index="2">
+<!-- =================================
+     SCENE 3 — 2025
+================================= -->
 
-<div
-class="year-card"
-onclick="openYear(this)">
+<section
+class="scene"
+id="scene3">
 
-<div class="year-number">
+<div class="content">
+
+<div class="small">
+The Distance Chapter
+</div>
+
+<div class="year">
 2025
 </div>
 
-<div class="tap">
-TOUCH TO OPEN
+<div class="year-subtitle">
+DISTANCE COULDN'T CHANGE US
 </div>
 
-<div class="memories">
+<div
+class="memory-list"
+id="memories2025">
 
 <div class="memory">
 Distance relationship 🌍
@@ -993,31 +808,45 @@ Missing moments... 🥺
 
 </div>
 
-</div>
+<button
+class="main-btn next-btn"
+id="next2025"
+onclick="goScene(4)">
+
+2026 IS WAITING ❤️
+
+</button>
 
 </div>
 
+</section>
 
-<!-- 2026 -->
 
-<div
-class="year locked"
-data-year="2026"
-data-index="3">
+<!-- =================================
+     SCENE 4 — 2026
+================================= -->
 
-<div
-class="year-card"
-onclick="openYear(this)">
+<section
+class="scene"
+id="scene4">
 
-<div class="year-number">
+<div class="content">
+
+<div class="small">
+The Year We Are Living
+</div>
+
+<div class="year">
 2026
 </div>
 
-<div class="tap">
-TOUCH TO OPEN
+<div class="year-subtitle">
+THE STORY CONTINUES...
 </div>
 
-<div class="memories">
+<div
+class="memory-list"
+id="memories2026">
 
 <div class="memory">
 Travelling for her — Kuwait → India ✈️
@@ -1041,21 +870,27 @@ Our unforgettable bus 🚌
 
 </div>
 
-</div>
+<button
+class="main-btn next-btn"
+id="next2026"
+onclick="goScene(5)">
 
-</div>
+CONTINUE OUR STORY ❤️
 
+</button>
 
 </div>
 
 </section>
 
 
-<!-- =========================
-     CONTINUING STORY
-========================= -->
+<!-- =================================
+     SCENE 5 — STORY
+================================= -->
 
-<section id="continue">
+<section
+class="scene"
+id="scene5">
 
 <div class="content">
 
@@ -1063,12 +898,10 @@ Our unforgettable bus 🚌
 Still Writing...
 </div>
 
-<div class="continue-line">
+<div class="story-text">
 
 Our story started in
-<span class="highlight">
-2023...
-</span>
+<span>2023...</span>
 
 <br><br>
 
@@ -1080,15 +913,15 @@ Because we're still writing it...
 
 <br>
 
-<span class="highlight">
+<span>
 together, until our last breath. ❤️
 </span>
 
 </div>
 
 <button
-class="final-btn"
-onclick="unlockBirthday()">
+class="main-btn"
+onclick="goScene(6)">
 
 CONTINUE ❤️
 
@@ -1099,11 +932,13 @@ CONTINUE ❤️
 </section>
 
 
-<!-- =========================
-     BIRTHDAY
-========================= -->
+<!-- =================================
+     SCENE 6 — BIRTHDAY
+================================= -->
 
-<section id="birthday">
+<section
+class="scene"
+id="scene6">
 
 <div class="content">
 
@@ -1112,24 +947,21 @@ CONTINUE ❤️
 </div>
 
 <div class="small">
-Today is yours
+Today Is Yours
 </div>
 
 <h2>
-
 Let's create our<br>
-
 <span class="highlight">
 more memorable days
 </span>
-
 </h2>
 
-<p style="margin-top:35px;">
+<p style="margin-top:30px;">
 Till our last breath together.
 </p>
 
-<p style="margin-top:30px;">
+<p style="margin-top:25px;">
 Wish you many more<br>
 
 <span class="highlight">
@@ -1139,8 +971,8 @@ Happy Returns of the Day, Papa ❤️
 </p>
 
 <button
-class="final-btn"
-onclick="unlockQuestion()">
+class="main-btn"
+onclick="goScene(7)">
 
 ONE LAST QUESTION...
 
@@ -1151,11 +983,13 @@ ONE LAST QUESTION...
 </section>
 
 
-<!-- =========================
-     QUESTION
-========================= -->
+<!-- =================================
+     SCENE 7 — QUESTION
+================================= -->
 
-<section id="question">
+<section
+class="scene"
+id="scene7">
 
 <div class="content">
 
@@ -1177,7 +1011,7 @@ Type the answer to unlock<br>
 what has been waiting for you.
 </p>
 
-<div class="answer-box">
+<div style="margin-top:30px;">
 
 <input
 id="answer"
@@ -1189,7 +1023,7 @@ autocomplete="off"
 <br>
 
 <button
-class="final-btn"
+class="main-btn"
 onclick="checkAnswer()">
 
 UNLOCK ❤️
@@ -1212,11 +1046,13 @@ Try again...
 </section>
 
 
-<!-- =========================
-     SUCCESS
-========================= -->
+<!-- =================================
+     SCENE 8 — CORRECT ANSWER
+================================= -->
 
-<section id="success">
+<section
+class="scene"
+id="scene8">
 
 <div class="content">
 
@@ -1225,7 +1061,7 @@ Try again...
 </div>
 
 <div class="small">
-You remembered...
+You Remembered...
 </div>
 
 <div class="success-text">
@@ -1261,8 +1097,8 @@ every single time. ❤️
 </div>
 
 <button
-class="final-btn"
-onclick="unlockFinal()">
+class="main-btn"
+onclick="goScene(9)">
 
 ONE LAST SURPRISE 🎁
 
@@ -1273,11 +1109,13 @@ ONE LAST SURPRISE 🎁
 </section>
 
 
-<!-- =========================
-     FINAL
-========================= -->
+<!-- =================================
+     SCENE 9 — FINAL
+================================= -->
 
-<section id="final">
+<section
+class="scene"
+id="scene9">
 
 <div class="content">
 
@@ -1326,14 +1164,12 @@ And when you're ready...
 </div>
 
 
-<!--
-==================================================
-PASTE YOUR GOOGLE DRIVE LINK HERE
-==================================================
--->
+<!-- ==================================
+     PUT YOUR GOOGLE DRIVE LINK HERE
+================================== -->
 
 <a
-class="final-btn drive"
+class="main-btn drive"
 href="https://drive.google.com/file/d/1xy9xLn58NE4GBe60OdjAVHO-meHvU4Rl/view?usp=drivesdk"
 target="_blank"
 rel="noopener">
@@ -1346,264 +1182,241 @@ CLICK HERE ❤️
 
 </section>
 
-</div>
-
-
-<!-- =========================
-     LOCK POPUP
-========================= -->
-
-<div
-class="popup"
-id="popup">
-
-<div class="popup-box">
-
-<div class="popup-title">
-🔒 Wait, Papa...
-</div>
-
-<div
-class="popup-text"
-id="popupText">
-
-This memory is still locked.<br>
-Complete the previous year first. ❤️
-
-</div>
-
-<button
-class="close-btn"
-onclick="closePopup()">
-
-OK ❤️
-
-</button>
-
-</div>
 
 </div>
 
 
 <script>
 
-/* ==================================================
-   MUSIC
-================================================== */
+/* =================================================
+   VARIABLES
+================================================= */
 
 const music =
 document.getElementById("bgMusic");
 
-music.volume = 0.20;
+const musicStatus =
+document.getElementById("musicStatus");
+
+let currentScene = 0;
+
+let transitioning = false;
 
 
-/* ==================================================
-   START MOVIE
-================================================== */
+/* =================================================
+   MUSIC
+================================================= */
 
-function startMovie(){
+/*
+   Music starts only after the user taps
+   START OUR MOVIE because mobile browsers
+   normally block autoplay with sound.
+*/
+
+function startMusic(){
 
     music.volume = 0.20;
 
-    music.play().catch(()=>{});
+    const promise = music.play();
 
-    document.body.classList.remove("locked");
+    if(promise !== undefined){
 
-    goTo("timeline");
+        promise.then(()=>{
+
+            musicStatus.style.display =
+            "block";
+
+        }).catch(()=>{
+
+            /*
+               If browser blocks playback,
+               the next user interaction can
+               try again.
+            */
+
+        });
+
+    }
+}
+
+
+/* =================================================
+   START MOVIE
+================================================= */
+
+function startMovie(){
+
+    startMusic();
+
+    goScene(1);
 
 }
 
 
-/* ==================================================
-   PARTICLES
-================================================== */
+/* =================================================
+   SCENE NAVIGATION
+================================================= */
 
-const particles =
-document.getElementById("particles");
+function goScene(number){
 
-for(let i=0;i<55;i++){
-
-    const p =
-    document.createElement("div");
-
-    p.className="particle";
-
-    p.style.left =
-    Math.random()*100+"%";
-
-    p.style.animationDuration =
-    (7+Math.random()*9)+"s";
-
-    p.style.animationDelay =
-    Math.random()*10+"s";
-
-    particles.appendChild(p);
-
-}
-
-
-/* ==================================================
-   NAVIGATION
-================================================== */
-
-function goTo(id){
-
-    const element =
-    document.getElementById(id);
-
-    if(!element) return;
-
-    element.scrollIntoView({
-        behavior:"smooth"
-    });
-
-}
-
-
-/* ==================================================
-   TIMELINE
-================================================== */
-
-const years =
-document.querySelectorAll(".year");
-
-let currentYear = 0;
-
-
-/* Open year */
-
-function openYear(card){
-
-    const year =
-    card.parentElement;
-
-    const index =
-    Number(year.dataset.index);
-
-
-    /* Locked */
-
-    if(index !== currentYear){
-
-        showPopup(
-        "This year is locked. ❤️",
-        "Complete the previous memory first."
-        );
+    if(
+        transitioning ||
+        number < 0 ||
+        number > 9
+    ){
 
         return;
     }
 
 
-    /* Already completed */
-
-    if(year.classList.contains("completed")){
-
-        year.classList.toggle("open");
+    if(number > currentScene + 1){
 
         return;
     }
 
 
-    /* Open */
-
-    year.classList.add("open");
+    transitioning = true;
 
 
-    /*
-      Wait until memories
-      have animated in.
-    */
+    const oldScene =
+    document.getElementById(
+        "scene" + currentScene
+    );
 
-    setTimeout(()=>{
-
-        year.classList.add("completed");
-
-        currentYear++;
-
-        unlockNextYear();
-
-    },1500);
-
-}
-
-
-/* Unlock next year */
-
-function unlockNextYear(){
-
-    const next =
-    document.querySelector(
-        `.year[data-index="${currentYear}"]`
+    const newScene =
+    document.getElementById(
+        "scene" + number
     );
 
 
-    if(next){
+    oldScene.classList.remove("active");
 
-        next.classList.remove("locked");
+
+    setTimeout(()=>{
+
+        newScene.classList.add("active");
+
+        currentScene = number;
+
+        transitioning = false;
+
+
+        if(
+            number >= 1 &&
+            number <= 4
+        ){
+
+            playMemories(number);
+
+        }
+
+    },400);
+
+}
+
+
+/* =================================================
+   MEMORY ANIMATION
+================================================= */
+
+const memoryData = {
+
+    1: "memories2023",
+    2: "memories2024",
+    3: "memories2025",
+    4: "memories2026"
+
+};
+
+
+function playMemories(sceneNumber){
+
+    const container =
+    document.getElementById(
+        memoryData[sceneNumber]
+    );
+
+    const memories =
+    container.querySelectorAll(
+        ".memory"
+    );
+
+
+    memories.forEach(memory=>{
+        memory.classList.remove("show");
+    });
+
+
+    const nextButton =
+    document.getElementById(
+        "next202" +
+        (sceneNumber === 1
+            ? "3"
+            : sceneNumber === 2
+            ? "4"
+            : sceneNumber === 3
+            ? "5"
+            : "6")
+    );
+
+
+    /*
+       Reveal one memory at a time.
+    */
+
+    memories.forEach((memory,index)=>{
 
         setTimeout(()=>{
 
-            next.scrollIntoView({
-                behavior:"smooth",
-                block:"center"
-            });
+            memory.classList.add("show");
 
-        },700);
+        },700 + index * 800);
 
-    }
-
-}
+    });
 
 
-/* ==================================================
-   AFTER 2026
-================================================== */
+    /*
+       Button appears only after
+       EVERY memory has appeared.
+    */
 
-function unlockBirthday(){
+    const totalTime =
+    700 +
+    memories.length * 800 +
+    700;
 
-    if(currentYear < 4){
 
-        showPopup(
-        "Almost there ❤️",
-        "There are still memories waiting for you."
-        );
+    setTimeout(()=>{
 
-        return;
-    }
+        nextButton.classList.add("ready");
 
-    goTo("birthday");
+    },totalTime);
 
 }
 
 
-/* ==================================================
-   BIRTHDAY → QUESTION
-================================================== */
-
-function unlockQuestion(){
-
-    goTo("question");
-
-}
-
-
-/* ==================================================
+/* =================================================
    QUESTION
-================================================== */
+================================================= */
 
 function checkAnswer(){
 
     const input =
-    document.getElementById("answer");
+    document.getElementById(
+        "answer"
+    );
+
+    const error =
+    document.getElementById(
+        "error"
+    );
+
 
     const answer =
     input.value
     .trim()
     .toLowerCase()
     .replace(/\s+/g," ");
-
-    const error =
-    document.getElementById("error");
 
 
     if(
@@ -1613,24 +1426,27 @@ function checkAnswer(){
         answer === "iloveyou"
     ){
 
-        error.style.display="none";
+        error.style.display =
+        "none";
+
 
         createHeartExplosion();
 
 
         setTimeout(()=>{
 
-            goTo("success");
+            goScene(8);
 
-        },1700);
+        },1300);
 
     }
 
     else{
 
-        error.style.display="block";
+        error.style.display =
+        "block";
 
-        input.value="";
+        input.value = "";
 
         input.focus();
 
@@ -1639,113 +1455,9 @@ function checkAnswer(){
 }
 
 
-/* ==================================================
-   HEART EXPLOSION
-================================================== */
-
-function createHeartExplosion(){
-
-    for(let i=0;i<70;i++){
-
-        const heart =
-        document.createElement("div");
-
-        heart.className=
-        "explosion-heart";
-
-        heart.innerHTML =
-        Math.random()>.5
-        ? "❤️"
-        : "♡";
-
-        heart.style.setProperty(
-            "--x",
-            (Math.random()*700-350)+"px"
-        );
-
-        heart.style.setProperty(
-            "--y",
-            (Math.random()*700-350)+"px"
-        );
-
-        heart.style.fontSize =
-        (12+Math.random()*25)+"px";
-
-        document.body.appendChild(heart);
-
-        setTimeout(()=>{
-            heart.remove();
-        },2100);
-
-    }
-
-}
-
-
-/* ==================================================
-   FINAL
-================================================== */
-
-function unlockFinal(){
-
-    goTo("final");
-
-}
-
-
-/* ==================================================
-   POPUP
-================================================== */
-
-function showPopup(title,text){
-
-    document.querySelector(
-        ".popup-title"
-    ).innerHTML = title;
-
-    document.getElementById(
-        "popupText"
-    ).innerHTML = text;
-
-    document.getElementById(
-        "popup"
-    ).style.display="flex";
-
-}
-
-
-function closePopup(){
-
-    document.getElementById(
-        "popup"
-    ).style.display="none";
-
-}
-
-
-/* ==================================================
-   STOP DIRECT SCROLLING TO LOCKED CONTENT
-================================================== */
-
-let allowedSections = [
-    "opening",
-    "timeline"
-];
-
-let lastScroll = 0;
-
-
-/*
-   We don't completely disable scrolling.
-   Instead, the timeline is controlled by the
-   year locks. The important final sections
-   are protected by checking their buttons.
-*/
-
-
-/* ==================================================
-   KEYBOARD ENTER FOR ANSWER
-================================================== */
+/* =================================================
+   ENTER KEY
+================================================= */
 
 document
 .getElementById("answer")
@@ -1762,7 +1474,22 @@ document
     }
 );
 
-</script>
 
-</body>
-</html>
+/* =================================================
+   HEART EXPLOSION
+================================================= */
+
+function createHeartExplosion(){
+
+    for(let i=0;i<80;i++){
+
+        const heart =
+        document.createElement("div");
+
+        heart.className =
+        "explosion-heart";
+
+        heart.innerHTML =
+        Math.random() > .45
+        ? "❤️"
+  
