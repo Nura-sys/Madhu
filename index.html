@@ -3,397 +3,1366 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For Madhu ❤️</title>
+<title>Movie of Us ❤️</title>
 
 <style>
-* {
-    box-sizing: border-box;
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-body {
-    margin: 0;
-    min-height: 100vh;
-    overflow: hidden;
-    background: #030308;
-    color: white;
-    font-family: Georgia, "Times New Roman", serif;
+html{
+    scroll-behavior:smooth;
 }
 
-#stars {
-    position: fixed;
-    inset: 0;
-    overflow: hidden;
+body{
+    background:#050507;
+    color:#fff;
+    font-family:'Montserrat',sans-serif;
+    overflow-x:hidden;
 }
 
-.star {
-    position: absolute;
-    width: 2px;
-    height: 2px;
-    background: white;
-    border-radius: 50%;
-    animation: twinkle 3s infinite ease-in-out;
+/* Cinematic background */
+
+body:before{
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:-5;
+
+    background:
+    radial-gradient(circle at 20% 20%,
+    rgba(255,70,120,.12),
+    transparent 30%),
+
+    radial-gradient(circle at 80% 80%,
+    rgba(120,60,255,.10),
+    transparent 30%);
+
+    animation:bgMove 12s infinite alternate ease-in-out;
 }
 
-@keyframes twinkle {
-    0%,100% { opacity: .15; }
-    50% { opacity: 1; }
+@keyframes bgMove{
+    from{transform:scale(1);}
+    to{transform:scale(1.15);}
 }
 
-.screen {
-    position: absolute;
-    inset: 0;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 30px;
-    animation: fade 1.5s ease;
+/* Film grain */
+
+body:after{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:50;
+    opacity:.035;
+
+    background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
 }
 
-.screen.active {
-    display: flex;
+/* Particles */
+
+#particles{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    overflow:hidden;
+    z-index:2;
 }
 
-.content {
-    max-width: 600px;
+.particle{
+    position:absolute;
+    width:3px;
+    height:3px;
+    border-radius:50%;
+    background:#fff;
+    opacity:.35;
+    animation:rise linear infinite;
 }
 
-.small {
-    color: #d9a1b2;
-    letter-spacing: 5px;
-    font-size: 12px;
-    text-transform: uppercase;
-    margin-bottom: 25px;
-}
+@keyframes rise{
 
-h1 {
-    font-size: clamp(55px, 15vw, 100px);
-    font-weight: normal;
-    margin: 0;
-    letter-spacing: 3px;
-    text-shadow:
-        0 0 15px rgba(255,80,120,.5),
-        0 0 50px rgba(255,40,90,.25);
-}
+    0%{
+        transform:translateY(110vh) scale(.3);
+        opacity:0;
+    }
 
-h2 {
-    font-size: clamp(28px, 7vw, 48px);
-    font-weight: normal;
-}
+    20%{
+        opacity:.5;
+    }
 
-p {
-    font-size: 20px;
-    line-height: 1.8;
-    color: #eee;
-}
+    80%{
+        opacity:.5;
+    }
 
-button {
-    margin-top: 30px;
-    padding: 13px 30px;
-    border: 1px solid rgba(255,150,170,.5);
-    border-radius: 30px;
-    background: rgba(255,255,255,.04);
-    color: white;
-    font-family: inherit;
-    font-size: 16px;
-    cursor: pointer;
-    transition: .4s;
-}
-
-button:hover {
-    background: rgba(255,80,120,.15);
-    box-shadow: 0 0 25px rgba(255,60,100,.25);
-    transform: scale(1.05);
-}
-
-.choice {
-    display: block;
-    width: min(300px,90vw);
-    margin: 12px auto;
-}
-
-.heart {
-    font-size: 35px;
-    color: #ff6b8d;
-    animation: heartbeat 1.8s infinite;
-}
-
-@keyframes heartbeat {
-    50% {
-        transform: scale(1.3);
-        text-shadow: 0 0 25px #ff4169;
+    100%{
+        transform:translateY(-10vh) scale(1);
+        opacity:0;
     }
 }
 
-.fade {
-    animation: fade 1.5s ease;
+/* Sections */
+
+section{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    position:relative;
+    padding:70px 22px;
 }
 
-@keyframes fade {
-    from { opacity: 0; transform: translateY(15px); }
-    to { opacity: 1; transform: translateY(0); }
+.content{
+    width:100%;
+    max-width:850px;
+    text-align:center;
 }
 
-.count {
-    font-size: 70px;
-    color: #ff7c9a;
-    text-shadow: 0 0 30px rgba(255,50,100,.5);
+.small{
+    font-size:10px;
+    letter-spacing:6px;
+    text-transform:uppercase;
+    opacity:.5;
+    margin-bottom:25px;
 }
 
-.final {
-    font-size: 22px;
-    line-height: 2;
+h1,
+h2,
+.year-number,
+.memory{
+    font-family:'Cormorant Garamond',serif;
 }
 
-.infinity {
-    font-size: 45px;
-    margin-top: 25px;
-    color: #ff7897;
+h1{
+    font-size:clamp(60px,15vw,130px);
+    line-height:.82;
+    font-weight:500;
+}
+
+h2{
+    font-size:clamp(42px,9vw,78px);
+    line-height:1;
+    font-weight:500;
+}
+
+p{
+    font-size:15px;
+    line-height:2;
+    opacity:.75;
+}
+
+.highlight{
+    color:#ff719b;
+}
+
+/* Opening */
+
+.opening{
+    text-align:center;
+}
+
+.opening-content{
+    animation:intro 2.5s ease forwards;
+}
+
+@keyframes intro{
+    from{
+        opacity:0;
+        transform:translateY(30px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.start-btn,
+.final-btn{
+    margin-top:45px;
+    padding:17px 34px;
+    border-radius:50px;
+
+    border:1px solid rgba(255,255,255,.25);
+
+    background:rgba(255,255,255,.04);
+
+    color:#fff;
+
+    font-family:'Montserrat',sans-serif;
+
+    font-size:10px;
+    letter-spacing:4px;
+
+    cursor:pointer;
+
+    transition:.5s;
+}
+
+.start-btn:hover,
+.final-btn:hover{
+    transform:scale(1.07);
+    background:rgba(255,80,130,.15);
+    box-shadow:
+    0 0 40px rgba(255,70,120,.2);
+}
+
+/* Scroll indicator */
+
+.scroll{
+    position:absolute;
+    bottom:30px;
+    left:50%;
+    transform:translateX(-50%);
+
+    font-size:9px;
+    letter-spacing:4px;
+    opacity:.35;
+
+    animation:bounce 2s infinite;
+}
+
+@keyframes bounce{
+
+    0%,100%{
+        transform:translate(-50%,0);
+    }
+
+    50%{
+        transform:translate(-50%,10px);
+    }
+}
+
+/* Timeline */
+
+.timeline-section{
+    display:block;
+    padding-top:120px;
+}
+
+.timeline-intro{
+    text-align:center;
+    margin-bottom:110px;
+}
+
+.timeline{
+    position:relative;
+    max-width:900px;
+    margin:auto;
+}
+
+.timeline-line{
+    position:absolute;
+    left:50%;
+    top:0;
+    bottom:0;
+    width:1px;
+
+    background:
+    linear-gradient(
+        transparent,
+        rgba(255,255,255,.35),
+        transparent
+    );
+}
+
+/* Year */
+
+.year{
+    position:relative;
+    min-height:250px;
+    margin:120px 0;
+
+    opacity:0;
+    transform:translateY(50px);
+
+    transition:
+    opacity 1s ease,
+    transform 1s ease;
+}
+
+.year.visible{
+    opacity:1;
+    transform:translateY(0);
+}
+
+.year-card{
+    width:44%;
+
+    padding:35px 25px;
+
+    border:1px solid rgba(255,255,255,.13);
+
+    border-radius:24px;
+
+    background:
+    linear-gradient(
+        145deg,
+        rgba(255,255,255,.06),
+        rgba(255,255,255,.015)
+    );
+
+    backdrop-filter:blur(15px);
+
+    cursor:pointer;
+
+    transition:.6s;
+}
+
+.year:nth-child(odd) .year-card{
+    margin-right:auto;
+}
+
+.year:nth-child(even) .year-card{
+    margin-left:auto;
+}
+
+.year-card:hover{
+    transform:translateY(-10px);
+    border-color:rgba(255,100,150,.5);
+
+    box-shadow:
+    0 20px 70px rgba(0,0,0,.5),
+    0 0 30px rgba(255,70,120,.08);
+}
+
+.year-number{
+    font-size:75px;
+    color:#ff719b;
+    line-height:.8;
+}
+
+.tap{
+    margin-top:20px;
+
+    font-size:8px;
+    letter-spacing:4px;
+
+    opacity:.4;
+}
+
+/* Memories */
+
+.memories{
+    max-height:0;
+    overflow:hidden;
+
+    transition:
+    max-height 1.3s ease,
+    margin-top .7s ease;
+}
+
+.year.open .memories{
+    max-height:800px;
+    margin-top:30px;
+}
+
+.memory{
+    font-size:22px;
+    line-height:1.2;
+
+    padding:17px 0;
+
+    border-bottom:
+    1px solid rgba(255,255,255,.07);
+
+    opacity:0;
+    transform:translateY(25px);
+
+    transition:
+    opacity .8s ease,
+    transform .8s ease;
+}
+
+.year.open .memory{
+    opacity:1;
+    transform:translateY(0);
+}
+
+.year.open .memory:nth-child(1){
+    transition-delay:.1s;
+}
+
+.year.open .memory:nth-child(2){
+    transition-delay:.25s;
+}
+
+.year.open .memory:nth-child(3){
+    transition-delay:.4s;
+}
+
+.year.open .memory:nth-child(4){
+    transition-delay:.55s;
+}
+
+.year.open .memory:nth-child(5){
+    transition-delay:.7s;
+}
+
+/* Continuing story */
+
+.continue{
+    text-align:center;
+}
+
+.continue-line{
+    font-family:'Cormorant Garamond',serif;
+
+    font-size:
+    clamp(30px,6vw,55px);
+
+    line-height:1.3;
+
+    max-width:750px;
+
+    margin:auto;
+}
+
+/* Heart */
+
+.heart{
+    font-size:70px;
+    margin-bottom:30px;
+
+    animation:
+    heartbeat 1.6s infinite;
+}
+
+@keyframes heartbeat{
+
+    0%,100%{
+        transform:scale(1);
+    }
+
+    15%{
+        transform:scale(1.15);
+    }
+
+    30%{
+        transform:scale(1);
+    }
+
+    45%{
+        transform:scale(1.12);
+    }
+}
+
+/* Question */
+
+.question{
+    font-family:'Cormorant Garamond',serif;
+
+    font-size:
+    clamp(34px,7vw,65px);
+
+    line-height:1.1;
+
+    margin-bottom:30px;
+}
+
+.answer-box{
+    margin-top:40px;
+}
+
+input{
+    width:100%;
+    max-width:450px;
+
+    padding:18px 25px;
+
+    border-radius:50px;
+
+    border:
+    1px solid rgba(255,255,255,.25);
+
+    background:
+    rgba(255,255,255,.05);
+
+    color:white;
+
+    text-align:center;
+
+    font-size:16px;
+
+    outline:none;
+
+    transition:.4s;
+}
+
+input:focus{
+    border-color:#ff719b;
+
+    box-shadow:
+    0 0 30px rgba(255,80,130,.1);
+}
+
+.error{
+    display:none;
+
+    margin-top:25px;
+
+    color:#ff91aa;
+
+    font-family:'Cormorant Garamond',serif;
+
+    font-size:25px;
+
+    animation:shake .4s;
+}
+
+@keyframes shake{
+
+    0%,100%{transform:translateX(0);}
+    25%{transform:translateX(-10px);}
+    75%{transform:translateX(10px);}
+}
+
+/* Success */
+
+#success{
+    display:none;
+}
+
+.success-text{
+    font-family:'Cormorant Garamond',serif;
+
+    font-size:
+    clamp(28px,6vw,48px);
+
+    line-height:1.35;
+}
+
+/* Heart explosion */
+
+.explosion-heart{
+    position:fixed;
+
+    left:50%;
+    top:50%;
+
+    transform:
+    translate(-50%,-50%);
+
+    font-size:30px;
+
+    pointer-events:none;
+
+    animation:
+    explode 2s forwards;
+
+    z-index:100;
+}
+
+@keyframes explode{
+
+    0%{
+        transform:
+        translate(-50%,-50%)
+        scale(.5);
+
+        opacity:1;
+    }
+
+    100%{
+        transform:
+        translate(
+        calc(-50% + var(--x)),
+        calc(-50% + var(--y))
+        )
+        scale(1.4);
+
+        opacity:0;
+    }
+}
+
+/* Final */
+
+.final-title{
+    font-family:'Cormorant Garamond',serif;
+
+    font-size:
+    clamp(45px,9vw,80px);
+
+    line-height:1;
+
+    margin-bottom:35px;
+}
+
+.final-subtitle{
+    font-family:'Cormorant Garamond',serif;
+
+    font-size:25px;
+
+    line-height:1.7;
+
+    opacity:.8;
+}
+
+.drive{
+    display:inline-block;
+    text-decoration:none;
+}
+
+/* Mobile */
+
+@media(max-width:700px){
+
+    .timeline-line{
+        left:13px;
+    }
+
+    .year{
+        margin:80px 0;
+    }
+
+    .year-card{
+        width:
+        calc(100% - 40px);
+
+        margin-left:40px !important;
+        margin-right:0 !important;
+    }
+
+    .year-number{
+        font-size:65px;
+    }
+
+    .memory{
+        font-size:21px;
+    }
+
 }
 </style>
 </head>
 
+
 <body>
 
-<div id="stars"></div>
+<div id="particles"></div>
 
-<!-- SCREEN 1 -->
-<section class="screen active" id="screen1">
-    <div class="content">
-        <div class="small">A big surprise wait for you in last</div>
-        <h1>Madhu</h1>
-        <p>Before you continue…<br>take a quiet moment.</p>
-        <button onclick="next('screen2')">Enter ✦</button>
-    </div>
+
+<!-- OPENING -->
+
+<section class="opening">
+
+<div class="content opening-content">
+
+<div class="small">
+A Movie Of Us
+</div>
+
+<h1>
+Welcome<br>
+<span class="highlight">Papa ❤️</span>
+</h1>
+
+<p style="margin-top:40px;">
+This year's birthday should be<br>
+the most unforgettable day.
+</p>
+
+<p style="margin-top:18px;">
+Something has been waiting for you<br>
+at the end...
+</p>
+
+<p style="margin-top:18px;">
+But before you reach it,
+<br>
+<span class="highlight">
+open all our unforgettable days.
+</span>
+</p>
+
+<button
+class="start-btn"
+onclick="goTo('timeline')">
+
+START OUR MOVIE ❤️
+
+</button>
+
+</div>
+
+<div class="scroll">
+SCROLL TO BEGIN
+</div>
+
 </section>
 
-<!-- SCREEN 2 -->
-<section class="screen" id="screen2">
-    <div class="content">
-        <div class="small">Just for a moment</div>
-        <h2>Put everything aside.</h2>
-        <p>Take a deep breath…<br>and put your headphones and go untill last.</p>
-        <button onclick="countdown()">I'm ready ❤️</button>
-    </div>
+
+<!-- TIMELINE -->
+
+<section
+class="timeline-section"
+id="timeline">
+
+<div class="timeline-intro">
+
+<div class="small">
+Our Journey
+</div>
+
+<h2>
+2023 → 2026
+</h2>
+
+<p style="margin-top:30px;">
+Four years.<br>
+Thousands of moments.<br>
+One beautiful story.
+</p>
+
+</div>
+
+
+<div class="timeline">
+
+<div class="timeline-line"></div>
+
+
+<!-- 2023 -->
+
+<div class="year">
+
+<div
+class="year-card"
+onclick="openYear(this)">
+
+<div class="year-number">
+2023
+</div>
+
+<div class="tap">
+TOUCH TO OPEN
+</div>
+
+<div class="memories">
+
+<div class="memory">
+Holding hands ❤️
+</div>
+
+<div class="memory">
+Lunch with love 🍽️
+</div>
+
+<div class="memory">
+Our 1st bike ride 🏍️
+</div>
+
+<div class="memory">
+Our 1st ring 💍
+</div>
+
+<div class="memory">
+Our 1st picture 📸
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- 2024 -->
+
+<div class="year">
+
+<div
+class="year-card"
+onclick="openYear(this)">
+
+<div class="year-number">
+2024
+</div>
+
+<div class="tap">
+TOUCH TO OPEN
+</div>
+
+<div class="memories">
+
+<div class="memory">
+Auto travel 🛺
+</div>
+
+<div class="memory">
+Saravanan Store ❤️
+</div>
+
+<div class="memory">
+Unforgettable moments...
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- 2025 -->
+
+<div class="year">
+
+<div
+class="year-card"
+onclick="openYear(this)">
+
+<div class="year-number">
+2025
+</div>
+
+<div class="tap">
+TOUCH TO OPEN
+</div>
+
+<div class="memories">
+
+<div class="memory">
+Distance relationship 🌍
+</div>
+
+<div class="memory">
+Video call life 📱
+</div>
+
+<div class="memory">
+Missing moments... 🥺
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- 2026 -->
+
+<div class="year">
+
+<div
+class="year-card"
+onclick="openYear(this)">
+
+<div class="year-number">
+2026
+</div>
+
+<div class="tap">
+TOUCH TO OPEN
+</div>
+
+<div class="memories">
+
+<div class="memory">
+Travelling for her — Kuwait → India ✈️
+</div>
+
+<div class="memory">
+Travelling with her ❤️
+</div>
+
+<div class="memory">
+Our unforgettable 1st movie 🎬
+</div>
+
+<div class="memory">
+Our bike rides 🏍️
+</div>
+
+<div class="memory">
+Our unforgettable bus 🚌
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
 </section>
 
-<!-- SCREEN 3 -->
-<section class="screen" id="screen3">
-    <div class="content">
-        <div class="count" id="count">3</div>
-    </div>
+
+<!-- CONTINUING STORY -->
+
+<section class="continue">
+
+<div class="content">
+
+<div class="small">
+Still Writing...
+</div>
+
+<div class="continue-line">
+
+Our story started in <span class="highlight">2023...</span>
+
+<br><br>
+
+But it doesn't have an ending.
+
+<br><br>
+
+Because we're still writing it...
+
+<br>
+
+<span class="highlight">
+together, until our last breath. ❤️
+</span>
+
+</div>
+
+<button
+class="final-btn"
+onclick="goTo('birthday')">
+
+CONTINUE ❤️
+
+</button>
+
+</div>
+
 </section>
 
-<!-- SCREEN 4 -->
-<section class="screen" id="screen4">
-    <div class="content">
-        <div class="small">One little thought</div>
-        <p>
-            என் நாளின் முதல் நினைவு நீ...
-            <br><br>
-என் இரவின் கடைசி கனவு நீ..
-        </p>
-        <button onclick="next('screen5')">Continue →</button>
-    </div>
+
+<!-- BIRTHDAY -->
+
+<section id="birthday">
+
+<div class="content">
+
+<div class="heart">
+❤️
+</div>
+
+<div class="small">
+Today is yours
+</div>
+
+<h2>
+Let's create our<br>
+<span class="highlight">
+more memorable days
+</span>
+</h2>
+
+<p style="margin-top:35px;">
+Till our last breath together.
+</p>
+
+<p style="margin-top:30px;">
+Wish you many more<br>
+<span class="highlight">
+Happy Returns of the Day, Papa ❤️
+</span>
+</p>
+
+<button
+class="final-btn"
+onclick="goTo('question')">
+
+ONE LAST QUESTION...
+
+</button>
+
+</div>
+
 </section>
 
-<!-- SCREEN 5 -->
-<section class="screen" id="screen5">
-    <div class="content">
-        <div class="small">Choose one ❤️</div>
 
-        <button class="choice" onclick="choice(1)">
-            🌙 Read something sweet
-        </button>
+<!-- QUESTION -->
 
-        <button class="choice" onclick="choice(2)">
-            ✨ Read something honest
-        </button>
+<section id="question">
 
-        <button class="choice" onclick="choice(3)">
-            ♾️ Something from my heart
-        </button>
+<div class="content">
 
-        <p id="choiceText"></p>
-    </div>
+<div class="small">
+The Final Question
+</div>
+
+<div class="question">
+
+Finally...<br>
+
+What is the key we used<br>
+to stop our fights at that time? ❤️
+
+</div>
+
+<p>
+Type the answer to unlock<br>
+what has been waiting for you.
+</p>
+
+<div class="answer-box">
+
+<input
+id="answer"
+type="text"
+placeholder="Type your answer..."
+autocomplete="off"
+>
+
+<br>
+
+<button
+class="final-btn"
+onclick="checkAnswer()">
+
+UNLOCK ❤️
+
+</button>
+
+<div
+class="error"
+id="error">
+
+🥺 Are you sure, Papa?<br>
+Try again...
+
+</div>
+
+</div>
+
+</div>
+
 </section>
 
-<!-- SCREEN 6 -->
-<section class="screen" id="screen6">
-    <div class="content">
-        <div class="heart">♥</div>
 
-        <p>
-            Maybe I don't always say everything I feel.
-            <br><br>
-            But if you ever wonder how special you are to me…
-            <br><br>
-            <strong>you don't have to wonder.</strong>
-        </p>
+<!-- SUCCESS -->
 
-        <h2>Madhu ❤️</h2>
+<section id="success">
 
-        <button onclick="next('screen7')">
-            Psst… there's one more thing
-        </button>
-    </div>
+<div class="content">
+
+<div class="heart">
+❤️
+</div>
+
+<div class="small">
+You remembered...
+</div>
+
+<div class="success-text">
+
+Yes... ❤️
+
+<br><br>
+
+From today,<br>
+
+let's decrease our fights<br>
+and increase our love.
+
+<br><br>
+
+More understanding.<br>
+More smiles.<br>
+More memories.<br>
+More "I love you."
+
+<br><br>
+
+Because I don't want to win<br>
+our fights...
+
+<br>
+
+<span class="highlight">
+I want to win you,<br>
+every single time. ❤️
+</span>
+
+</div>
+
+<button
+class="final-btn"
+onclick="goTo('final')">
+
+ONE LAST SURPRISE 🎁
+
+</button>
+
+</div>
+
 </section>
 
-<!-- SCREEN 7 -->
-<section class="screen" id="screen7">
-    <div class="content">
-        <div class="small">One more thing</div>
 
-        <h2>Happy Birthday, Papa ❤️</h2>
+<!-- FINAL SURPRISE -->
 
-        <p>
-            I hope this little moment makes you smile…
-            <br><br>
-            because your smile is one of my favourite things.
-        </p>
+<section id="final">
 
-        <button onclick="next('screen8')">
-            Open it 🤍
-        </button>
-    </div>
-</section>
+<div class="content">
 
-<!-- SCREEN 8 -->
-<section class="screen" id="screen8">
-    <div class="content">
-        <h1>Madhu</h1>
+<div class="small">
+The Final Scene
+</div>
 
-        <p class="final">
-            Some moments are temporary.
-            <br>
-            Some people aren't.
-        </p>
+<div class="final-title">
 
-        <div class="infinity">♾</div>
+Are you ready to make<br>
+this day memorable,<br>
 
-<a href="https://drive.google.com/file/d/1xy9xLn58NE4GBe60OdjAVHO-meHvU4Rl/view?usp=drivesdk"
-   target="_blank"
-   style="
-   display:inline-block;
-   margin-top:25px;
-   padding:14px 30px;
-   border:1px solid rgba(255,150,170,.5);
-   border-radius:30px;
-   color:white;
-   text-decoration:none;
-   font-family:Georgia,serif;
-   ">
-   Your surprise ♡
+<span class="highlight">
+Papa... ❤️
+</span>
+
+</div>
+
+<div class="final-subtitle">
+
+Put your earphones on. 🎧
+
+<br>
+
+Take a long breath...
+
+<br>
+
+Close your eyes.
+
+<br><br>
+
+Think about <span class="highlight">us.</span>
+
+<br>
+
+From 2023 until today.
+
+<br><br>
+
+And when you're ready...
+
+</div>
+
+
+<!-- CHANGE THE LINK BELOW -->
+
+<a
+class="final-btn drive"
+href="https://drive.google.com/file/d/1xy9xLn58NE4GBe60OdjAVHO-meHvU4Rl/view?usp=drivesdk"
+target="_blank"
+rel="noopener">
+
+CLICK HERE ❤️
+
 </a>
-    </div>
+
+</div>
+
 </section>
+
 
 <script>
 
-/* Stars */
-const stars = document.getElementById("stars");
+/* =========================
+   PARTICLES
+========================= */
 
-for (let i = 0; i < 100; i++) {
-    const star = document.createElement("div");
+const particles =
+document.getElementById("particles");
 
-    star.className = "star";
+for(let i=0;i<55;i++){
 
-    star.style.left = Math.random() * 100 + "%";
-    star.style.top = Math.random() * 100 + "%";
+    const p =
+    document.createElement("div");
 
-    star.style.animationDelay =
-        Math.random() * 4 + "s";
+    p.className="particle";
 
-    stars.appendChild(star);
+    p.style.left =
+    Math.random()*100+"%";
+
+    p.style.animationDuration =
+    (7+Math.random()*9)+"s";
+
+    p.style.animationDelay =
+    Math.random()*10+"s";
+
+    p.style.opacity =
+    Math.random()*.5;
+
+    particles.appendChild(p);
 }
 
-/* Screen navigation */
 
-function next(id) {
+/* =========================
+   NAVIGATION
+========================= */
 
-    document.querySelectorAll(".screen")
-        .forEach(screen => screen.classList.remove("active"));
+function goTo(id){
 
-    document.getElementById(id)
-        .classList.add("active");
+    const element =
+    document.getElementById(id);
+
+    element.scrollIntoView({
+        behavior:"smooth"
+    });
+
 }
 
-/* Countdown */
 
-function countdown() {
+/* =========================
+   OPEN YEAR
+========================= */
 
-    next("screen3");
+function openYear(card){
 
-    let number = 3;
+    const year =
+    card.parentElement;
 
-    const counter = document.getElementById("count");
+    year.classList.toggle("open");
 
-    const timer = setInterval(() => {
-
-        number--;
-
-        if (number === 0) {
-
-            clearInterval(timer);
-
-            next("screen4");
-
-        } else {
-
-            counter.innerText = number;
-
-        }
-
-    }, 1000);
 }
 
-/* Choice messages */
 
-function choice(number) {
+/* =========================
+   TIMELINE SCROLL ANIMATION
+========================= */
 
-    const text = document.getElementById("choiceText");
+const years =
+document.querySelectorAll(".year");
 
-    if (number === 1) {
+const observer =
+new IntersectionObserver(
 
-        text.innerHTML =
-        "Some people make ordinary moments feel a little more beautiful. ❤️";
+(entries)=>{
+
+entries.forEach(entry=>{
+
+    if(entry.isIntersecting){
+
+        entry.target.classList.add("visible");
 
     }
 
-    if (number === 2) {
+});
 
-        text.innerHTML =
-        "I may not always find the perfect words, but what I feel is real. ✨";
+},
+
+{
+threshold:.15
+}
+
+);
+
+years.forEach(year=>{
+    observer.observe(year);
+});
+
+
+/* =========================
+   FINAL ANSWER
+========================= */
+
+function checkAnswer(){
+
+    const input =
+    document
+    .getElementById("answer");
+
+    const answer =
+    input.value
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g," ");
+
+    const error =
+    document
+    .getElementById("error");
+
+
+    if(
+        answer==="love you" ||
+        answer==="i love you" ||
+        answer==="loveyou" ||
+        answer==="iloveyou"
+    ){
+
+        error.style.display="none";
+
+        createHeartExplosion();
+
+        setTimeout(()=>{
+
+            document
+            .getElementById("question")
+            .style.display="none";
+
+            document
+            .getElementById("success")
+            .style.display="flex";
+
+            goTo("success");
+
+        },1700);
 
     }
 
-    if (number === 3) {
+    else{
 
-        text.innerHTML =
-        "If I could give you one thing, it would be the ability to see yourself through my eyes. ♾️";
+        error.style.display="block";
+
+        input.value="";
+
+        input.focus();
 
     }
 
-    setTimeout(() => {
-
-        next("screen6");
-
-    }, 3500);
 }
 
-/* Remember her visit */
 
-if (localStorage.getItem("madhuVisited")) {
+/* =========================
+   HEART EXPLOSION
+========================= */
 
-    setTimeout(() => {
+function createHeartExplosion(){
 
-        alert("Welcome back, Madhu. ❤️\nI knew you'd come back.");
+    for(let i=0;i<70;i++){
 
-    }, 1200);
+        const heart =
+        document.createElement("div");
+
+        heart.className=
+        "explosion-heart";
+
+        heart.innerHTML=
+        Math.random()>.5
+        ?"❤️"
+        :"♡";
+
+        heart.style.setProperty(
+            "--x",
+            (Math.random()*700-350)+"px"
+        );
+
+        heart.style.setProperty(
+            "--y",
+            (Math.random()*700-350)+"px"
+        );
+
+        heart.style.fontSize=
+        (12+Math.random()*25)+"px";
+
+        document.body.appendChild(heart);
+
+        setTimeout(()=>{
+            heart.remove();
+        },2100);
+
+    }
 
 }
-
-localStorage.setItem("madhuVisited", "yes");
 
 </script>
 
